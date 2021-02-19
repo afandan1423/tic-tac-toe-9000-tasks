@@ -11,10 +11,9 @@ class TicTacToeGame(AbstractTicTacToeGame):
         strategy: Callable[[TicTacToeGameInfo], TicTacToeTurn] = None
     ) -> None:
         self.__game_id = game_id
-        self.__first_player_id = first_player_id
+        self.__first_player_id = first_player_id 
         self.__second_player_id = second_player_id
         self.__winner_id = ""
-        self.__draw = "False"
         self.__strategy = strategy
         self.__turns: List[TicTacToeTurn] = []
 
@@ -60,7 +59,6 @@ class TicTacToeGame(AbstractTicTacToeGame):
             first_player_id=self.__first_player_id,
             second_player_id=self.__second_player_id,
             winner_id=self.__winner_id,
-            draw=self.__draw
         )
         for turn in self.__turns:
             if turn.player_id == self.__first_player_id:
@@ -68,7 +66,7 @@ class TicTacToeGame(AbstractTicTacToeGame):
             else:
                 ch = "O"
             result.field[turn.x_coordinate][turn.y_coordinate] = ch
-        if result.winner_id == "" and draw == "False":
+        if result.winner_id == "":
             draw_check = [""] * 8
             y = result.field
             for a in range(len(y)):
@@ -108,5 +106,5 @@ class TicTacToeGame(AbstractTicTacToeGame):
                 elif n.count("X") > 0 and n.count("O") > 0:
                     draw_check[8] = "True"
             if draw_check.count("True") == 8:
-                result.draw = "True"
+                result.winner_id = "Draw"
         return result
